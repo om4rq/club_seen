@@ -32,21 +32,30 @@ axios.get(placesSearch)
     })
     .then(function (response){
         console.log("entered 2nd then")
+
         let tempSec = [];
         axios.all(response.map(l => axios.get(l)))
-            .then(function (res) {
+            .then(axios.spread((...res)=> {
                 let name =res.map(r=>r.data.result.name);
                 let phone =res.map(r=>r.data.result.formatted_phone_number);
-                console.log("TempSec: "+tempSec);
+                const result = stored.map((e, i) => ({
+                    name: e.name,
+                    place_id: e.place_id,
+                    phone: phone[i],
+                    rating: e.rating,
+                    price: e.price
+                    }))
+                console.log(result)
 /*
             figure out how to print temSec
 */
 
 	        // all requests are now complete
-            })
-            .then((x)=>{
-                console.log("f2");
-            });
+            }))
+        .then((response) => {
+//            console.log(stored)
+//            console.log(tempSec)
+        });
 
     })
     .catch(function (error) {
@@ -54,14 +63,3 @@ axios.get(placesSearch)
         console.log("Unable to connect to API servers");}})
 
 
-
-
-/*.then(axios.spread(function (...res) {
-                let name = [res[0].data.result.name];
-                // let phone_number = res[0].data.result.formatted_phone_number;
-                // tempSec.push(name, phone_number)
-                console.log(name);
-
-
-	        // all requests are now complete
-            }))*/
