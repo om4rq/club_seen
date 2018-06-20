@@ -41,6 +41,7 @@ axios.get(placesSearch)
                 const result = stored.map((e, i) => ({
                     name: e.name,
                     place_id: e.place_id,
+
                     phone: phone[i],
                     rating: e.rating,
                     price: e.price

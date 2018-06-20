@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Title of the document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <style>
+        h1,h2,h3,h4,h5,p {
+            color: #ccc
+        }
+
+        p {
+            color: #ccc
+        }
+
+        body {
+            background-color: #11151F
+        }
+
+        .cardContainer {
+            background-color: #1B1E2C;
+            border-left: 20px solid #282D42;
+            padding: 30px;
+        }
+        .results {
+            max-width: 50em
+        }
+
+        .results .card {
+            position: relative;
+            background-color: #202639;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 1em
+        }
+
+        .mini-menu p {
+            display: inline-block;
+        }
+
+        .mini-menu p:not(:first-child) {
+            margin: 0 15px 0 15px
+        }
+        .text{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            width: 100%;           
+        }
+        .attributes{
+            z-index: 3;
+            /**/
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0em;
+            left: 0em;
+        }
+        .card .attributes .bottom-left{
+            position: absolute;
+            margin: 3em;
+            bottom: 0;
+            left: 0;
+            text-align: left;
+        }
+        .card .attributes .bottom-right{
+            position: absolute;
+            margin: 3em;
+            bottom: 0;
+            right: 0;
+            text-align: right;
+        }
+        .card .attributes .top-left{
+            position: absolute;
+            margin: 3em;
+            top: 0;
+            left: 0;
+            text-align: left;
+        }
+        .card .attributes .top-right{
+            position: absolute;
+            margin: 3em;
+            top: 0;
+            right: 0;
+            text-align: right;
+        }
+        .card .bg{
+            background-size: cover;
+            background-position: center;
+            width: 125%;
+            height: 125%;
+            top: -12.5%;
+            left: -12.5%;
+            z-index: 2;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            const divWidth = $('.results > .card').width(); 
+            console.log(divWidth)
+            const divHeight = $('.results > .card').height(divWidth*.666);
+            console.log(divHeight)
+//            const $('.resutls >.box').css('height', divWidth+'px');
+        });  
+    </script>
+</head>
+
+<body>
+<!--Cards container-->
+    <div class="row center-xs" style="margin-top: 50px">
+        <div class="col-xs-6 cardContainer">
+<!--Seach tools-->
+            <div class="row start-xs">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <h1>Clubs</h1>
+                        <div class="mini-menu">
+                            <p>All</p>
+                            <p>Rating</p>
+                            <p>Price</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--CARD-->
+       <div class="row results">
+           <div class="card">
+                <div class="bg" style="background-image:url('https://scontent-ort2-2.xx.fbcdn.net/v/t1.0-9/10342397_10152430953966889_568241823823454240_n.jpg?_nc_cat=0&oh=b7e8dfbb2dd11438eae1fbceae594bb4&oe=5BB24678');" ><meta></div>
+               <div class="text">
+                   <h1>Club Name</h1>
+               </div>
+               <div class="attributes">
+                  <div class="top-left">
+                      <p>ranking</p>
+                  </div>
+                  <div class="top-right">
+                      <p>music</p>
+                  </div>
+                   <div class="bottom-left">
+                       <p>hello</p>
+                   </div>
+                   <div class="bottom-right">
+                       <p>Price</p>
+                   </div>
+               </div>
+           </div>
+       </div>
+        
+            
+        </div>
+    </div>
+
+
+</body>
+
+</html>
