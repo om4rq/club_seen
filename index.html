@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-    <head>
+
+<head>
     <meta charset="UTF-8">
     <title>Title of the document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.css">
@@ -96,63 +97,38 @@
             z-index: 2;
         }
     </style>
-    <script>
-        $(document).ready(function() {
-            const divWidth = $('.results > .card').width(); 
-            console.log(divWidth)
-            const divHeight = $('.results > .card').height(divWidth*.666);
-            console.log(divHeight)
-//            const $('.resutls >.box').css('height', divWidth+'px');
-        });  
-    </script>
+
 </head>
 
 <body>
-<!--Cards container-->
+    
+    <!--
+    input
+    push input to API
+    get longitude and latitude
+    
+-->
     <div class="row center-xs" style="margin-top: 50px">
-        <div class="col-xs-6 cardContainer">
-<!--Seach tools-->
-            <div class="row start-xs">
-                <div class="col-xs-12">
-                    <div class="box">
-                        <h1>Clubs</h1>
-                        <div class="mini-menu">
-                            <p>All</p>
-                            <p>Rating</p>
-                            <p>Price</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-<!--CARD-->
-       <div class="row results">
-           <div class="card">
-                <div class="bg" style="background-image:url('https://scontent-ort2-2.xx.fbcdn.net/v/t1.0-9/10342397_10152430953966889_568241823823454240_n.jpg?_nc_cat=0&oh=b7e8dfbb2dd11438eae1fbceae594bb4&oe=5BB24678');" ><meta></div>
-               <div class="text">
-                   <h1>Club Name</h1>
-               </div>
-               <div class="attributes">
-                  <div class="top-left">
-                      <p>ranking</p>
-                  </div>
-                  <div class="top-right">
-                      <p>music</p>
-                  </div>
-                   <div class="bottom-left">
-                       <p>hello</p>
-                   </div>
-                   <div class="bottom-right">
-                       <p>Price</p>
-                   </div>
-               </div>
-           </div>
-       </div>
-        
-            
+        <form id="form" onsubmit="return false;" style="color: white; display: inline-block">
+            Adress <input type="text" name="lname" id="userInput"/>
+            <input type="submit" value="Submit" onclick="inputAdress();"/>
+        </form>
+        <div>
+        <h1>Longitude: <span></span></h1><br/>
+        <h1>Latitude: <span></span></h1>
         </div>
     </div>
+    <button onclick="inputAdress()"></button>
+    
+    
+    <script>
+        function inputAdress(){
+            var input = document.getElementById("userInput").value
+            console.log(input)
+        }
+    </script>
 
-
+    <script src="src/geocode.js"></script>
 </body>
 
 </html>

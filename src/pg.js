@@ -1,7 +1,11 @@
-const  axios =  require('axios');
+const  axios =  require("axios")
+const geo = require('./geocode.js');
 
-var lng = 41.8781,
-    lat = -87.6298,
+
+
+
+var lng = 0,
+    lat = 0,
     //array contains  [place_id, name, rating, price]
     //array wil be used combine with tempSec which contains [phone_number, and hours]
     stored = [],
@@ -9,12 +13,31 @@ var lng = 41.8781,
     tempId = [],
     //place search url requires longitude and latitude as inputs
     keys = ["AIzaSyCO07rUpvSrN2zthoTfQLT1CYgbex9L88w","AIzaSyAVAO1T6l9shRTSs06rJJtQIyLHTsJHcFM"],
-    key = keys[0],
-    placesSearch = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lng},${lat}&radius=11500&type=night_club&keyword=nightclub&key=${key}`;
-axios.get(placesSearch)
+    key = keys[0];
+//obtain location cordinates
+function location() {
+    geo.then(function(result){
+    lat = result.lat
+    lng = result.lng
+    return {
+        lat: lat,
+        lng:lng
+    }
+    }).then(function(result){
+
+        scrape(lat)
+    })
+   
+};
+
+location()
+//search for clubs. Input: cordinates
+
+function scrape(){
+axios.get( `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=11500&type=night_club&keyword=nightclub&key=${key}`)
     .then(function (response) {
-        if(response.status ==='ZERO_RESULTS'){
-            throw new Error('Unable to find that adress');
+        if(response.status ==="ZERO_RESULTS"){
+            throw new Error("Unable to find that adress");
         }
         //create a prototype for places. To access properties, you must make a new object of places
         //     console.log(response.data.results.length)
@@ -31,8 +54,6 @@ axios.get(placesSearch)
         return transformedUrl;
     })
     .then(function (response){
-        console.log("entered 2nd then")
-
         let tempSec = [];
         axios.all(response.map(l => axios.get(l)))
             .then(axios.spread((...res)=> {
@@ -45,22 +66,26 @@ axios.get(placesSearch)
                     phone: phone[i],
                     rating: e.rating,
                     price: e.price
-                    }))
-                console.log(result)
-/*
+                }));
+                console.log(result);
+                /*
             figure out how to print temSec
 */
 
 	        // all requests are now complete
             }))
-        .then((response) => {
-//            console.log(stored)
-//            console.log(tempSec)
-        });
+            .then((response) => {
+                //            console.log(stored)
+                //            console.log(tempSec)
+            });
 
     })
     .catch(function (error) {
-    if(error.code === "ENOTFOUND"){
-        console.log("Unable to connect to API servers");}})
+        if(error.code === "ENOTFOUND"){
+            console.log("Unable to connect to API servers");}});
+}
+
+
+
 
 
